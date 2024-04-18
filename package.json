@@ -5,15 +5,15 @@
   "scripts": {
     "start": "node ./",
     "dev": "nodemon ./index.ts",
-    "serve": "docker-compose up --build"
+    "serve": "docker-compose up",
+    "build": "tsc"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "~4.16.1",
     "helmet": "^7.1.0",
-    "morgan": "^1.10.0",
-    "typescript": "^5.4.5"
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -29,6 +29,8 @@
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "nodemon": "^3.1.0",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+
   }
 }

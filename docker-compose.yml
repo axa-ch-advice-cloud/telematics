@@ -22,8 +22,7 @@ services:
       - postgres
     command: npm run dev
     volumes:
-      - .:/app
-      - /app/node_modules
+      - ./:/usr/src/app
 
 volumes:
   my_pgdata:
