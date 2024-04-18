@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node ./",
+    "dev": "node ./",
+    "serve": "docker-compose up --build"
   },
   "dependencies": {
     "express": "~4.16.1",
