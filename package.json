@@ -1,0 +1,13 @@
+{
+  "name": "caruso-management",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3"
+  }
+}
