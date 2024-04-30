@@ -5,8 +5,10 @@ import cors from 'cors';
 
 //  Get dot env
 import dotenv from 'dotenv';
+import {getAccessToken} from "./services/highMobilityService";
+import {getVehicleData} from "./controllers/highMobilityController";
+import {authenticateRequest} from "./controllers/authController";
 dotenv.config();
-import { getAccessCertificate } from './controllers/highMobilityController';
 
 
 const app = express();
@@ -20,7 +22,10 @@ app.route('/').get((req, res) => {
     res.send('Hello World!');
 })
 
-getAccessCertificate()
+//app.get('/access-token', getAccessToken)
+
+app.get('/vehicle-data/:vin', authenticateRequest, getVehicleData)
+
 
 
 export default app;

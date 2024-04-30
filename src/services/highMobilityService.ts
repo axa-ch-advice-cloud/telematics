@@ -1,17 +1,7 @@
-import { response } from "express"
-import https from "https"
-// this is needed for default trusted list of CAs
-import tls from "tls"
-// for reading files
-import fs from "fs"
-
 import axios from 'axios'
-//  Get dot env
-import dotenv from 'dotenv';
-dotenv.config();
 
 export async function getAccessToken() {
-    const url: string = process.env.HM_TOKEN_URI || 'empty'
+    const url: string = process.env.HM_API_URI + '/access_tokens' || 'empty'
     const clientId = process.env.HM_CLIENT_ID
     const clientSecret = process.env.HM_CLIENT_SECRET
     try {
@@ -25,10 +15,15 @@ export async function getAccessToken() {
             }
         });
 
-        console.log("SUCCESS", response.data);
-    } catch (e) {
-        console.log("ERROR", e);
+        if(response.data.access_token) {
+            //res.status(200).json({...response.data})
+            console.log(response.data)
+            return response.data
+        }
+
+    }
+    catch (e) {}
+    return {
+        error: "Something went wrong"
     }
 }
-
-getAccessToken()
