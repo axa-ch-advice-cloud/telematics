@@ -18,6 +18,13 @@ type UnlinkedVehicle = {
     status: string;
 }
 
+// What is actually ran by the Job
+export function vehicleLinkingJob() {
+    const unlinkedVehicles = getUnlinkedVehicles()
+    handleVehicleLinking(unlinkedVehicles)
+}
+
+
 // Find vehicles in the table, that are waiting to be linked
 function getUnlinkedVehicles() {
     // Just for the idea / example, should actually be searching through db table
