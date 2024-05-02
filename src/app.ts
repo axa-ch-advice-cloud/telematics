@@ -3,12 +3,12 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 
-//  Get dot env
+// Load env variables
 import dotenv from 'dotenv';
-import {getAccessToken} from "./services/highMobilityService";
+dotenv.config();
+
 import {createClearance, getClearances, getVehicleData} from "./controllers/highMobilityController";
 import {authenticateRequest} from "./controllers/authController";
-dotenv.config();
 
 
 const app = express();

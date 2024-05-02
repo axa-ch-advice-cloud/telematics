@@ -1,6 +1,5 @@
 
 import {Request, Response} from 'express'
-import { getAccessToken } from "../services/highMobilityService";
 import axios, {AxiosError} from 'axios'
 import dotenv from 'dotenv';
 import {handleHttpError} from "../util/handleHttpError";
@@ -19,8 +18,6 @@ export async function getVehicleData(req: Request, res: Response) {
                 'Authorization': req.headers.authorization
             },
         })
-        //console.log(response.data.diagnostics.odometer.data)
-        //console.log(response.data)
         res.status(200).json({...response.data})
         return
 
@@ -33,28 +30,6 @@ export async function getVehicleData(req: Request, res: Response) {
     }
 }
 
-
-
-
-async function createClearance2(vehicles: Array<Object>) {
-    const data = await getAccessToken()
-    const url: string = process.env.HM_API_URI + '/fleets/vehicles'
-    try {
-        const response = await axios.post(url, {
-            vehicles: vehicles
-        },{
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + data.access_token
-            },
-        })
-        console.log(response.data)
-        return response.data
-    }
-    catch (e){
-        console.log("ERROR", e)
-    }
-}
 
 export async function createClearance(req: Request, res: Response) {
     const url: string = process.env.HM_API_URI + '/fleets/vehicles'
@@ -107,8 +82,10 @@ export async function getClearances(req: Request, res: Response) {
 }
 
 
+/*
 
-const vehicles = [
+Create Clearances Array needs to look like this:
+ const vehicles = [
     {
         vin: "1HMV6FDK8GJ7F775C",
         brand: "sandbox",
@@ -134,8 +111,9 @@ const vehicles = [
         brand: "sandbox",
         tags: {}
     },
-
 ]
+ */
+
 /*
 First Create a clearance for a vehicle (Requires VIN and brand)
 Optional: Check clearance status using getClearances()
