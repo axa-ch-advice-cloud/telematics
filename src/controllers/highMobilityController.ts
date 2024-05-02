@@ -3,6 +3,8 @@ import {Request, Response} from 'express'
 import { getAccessToken } from "../services/highMobilityService";
 import axios, {AxiosError} from 'axios'
 import dotenv from 'dotenv';
+import {handleHttpError} from "../util/handleHttpError";
+import {VehicleClearance} from "../classes/highMobilityClasses";
 dotenv.config();
 
 
@@ -25,18 +27,16 @@ export async function getVehicleData(req: Request, res: Response) {
     }
     catch (e){
         const error = e as AxiosError
-        console.log(error)
-        if (error?.response?.status === 403) {
-            res.status(403).json({error:"No permission to access vehicle with this VIN, maybe you need to access clearance first"})
-            return
-        }
+        const errorMessage = handleHttpError(error);
+        res.status(error?.response?.status || 500).json({error: errorMessage})
+        return
     }
-    res.status(500).json({error:"Something went wrong"})
-    return
 }
 
 
-async function createClearance(vehicles: Array<Object>) {
+
+
+async function createClearance2(vehicles: Array<Object>) {
     const data = await getAccessToken()
     const url: string = process.env.HM_API_URI + '/fleets/vehicles'
     try {
@@ -56,23 +56,54 @@ async function createClearance(vehicles: Array<Object>) {
     }
 }
 
+export async function createClearance(req: Request, res: Response) {
+    const url: string = process.env.HM_API_URI + '/fleets/vehicles'
+    try {
+        const vehicles = req.body as Array<VehicleClearance>
 
-async function getClearances() {
-    const data = await getAccessToken()
+        if (!vehicles || !vehicles.length) {
+            res.status(400).json({error: "Please include one or more vehicles (VIN + Brand) in the request body"})
+            return
+        }
+
+        const response = await axios.post(url, {
+            vehicles: vehicles
+        },{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': req.headers.authorization
+            },
+        })
+        res.status(200).json({...response.data})
+        return
+    }
+    catch (e){
+        const error = e as AxiosError
+        const errorMessage = handleHttpError(error);
+        res.status(error?.response?.status || 500).json({error: errorMessage})
+        return
+    }
+}
+
+export async function getClearances(req: Request, res: Response) {
     const url: string = process.env.HM_API_URI + '/fleets/vehicles'
     try {
         const response = await axios.get(url, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + data.access_token
+                'Authorization': req.headers.authorization
             },
         })
-        console.log(response.data)
-        return response.data
+        res.status(200).json({...response.data})
+        return
     }
     catch (e){
-        console.log("ERROR", e)
+        const error = e as AxiosError
+        const errorMessage = handleHttpError(error);
+        res.status(error?.response?.status || 500).json({error: errorMessage})
+        return
     }
+
 }
 
 
@@ -111,5 +142,5 @@ Optional: Check clearance status using getClearances()
 Get vehicle data for said vehicle using getVehicleData()
 */
 //createClearance(vehicles)
-getClearances()
+//getClearances()
 //getVehicleData("1HMV6FDK8GJ7F775C")
