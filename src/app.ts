@@ -38,7 +38,7 @@ app.post('/clearances', authenticateRequest, createClearance)
 
 
 cron.schedule('0 */2 * * *', () => {
-    console.log('Running the Vehicle Linking Job (Ran every 2 Hours)')
+    //console.log('Running the Vehicle Linking Job (Ran every 2 Hours)')
     vehicleLinkingJob()
 })
 
