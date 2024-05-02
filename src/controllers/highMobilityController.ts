@@ -7,7 +7,7 @@ import {VehicleClearance} from "../classes/highMobilityClasses";
 dotenv.config();
 
 
-export async function getVehicleData(req: Request, res: Response) {
+export async function getHighMobilityVehicleData(req: Request, res: Response) {
     try {
         const vin = req.params.vin
         const url: string = process.env.HM_API_URI + '/vehicle-data/autoapi-13/' + vin

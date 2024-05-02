@@ -8,9 +8,10 @@ import cron from 'node-cron'
 import dotenv from 'dotenv';
 dotenv.config();
 
-import {createClearance, getClearances, getVehicleData} from "./controllers/highMobilityController";
+import {createClearance, getClearances, getHighMobilityVehicleData} from "./controllers/highMobilityController";
 import {authenticateRequest} from "./controllers/authController";
 import {vehicleLinkingJob} from "./jobs/linkVehicles";
+import {getCarusoVehicleData} from "./controllers/carusoController";
 
 
 const app = express();
@@ -24,17 +25,22 @@ app.route('/').get((req, res) => {
     res.send('Hello World!');
 })
 
-//app.get('/access-token', getAccessToken)
+
+
+// Send an array of VINs in body
+app.get('/caruso/vehicle-data', getCarusoVehicleData)
+
 
 /**
  * To call these, you either need to include the High mobility access token as a Bearer token in Auth header,
  * or send our admin login as base64 and Basic auth
  */
-app.get('/vehicle-data/:vin', authenticateRequest, getVehicleData)
+// Send a single vin as param
+app.get('/hm/vehicle-data/:vin', authenticateRequest, getHighMobilityVehicleData)
 
-app.get('/clearances', authenticateRequest, getClearances)
+app.get('/hm/clearances', authenticateRequest, getClearances)
 
-app.post('/clearances', authenticateRequest, createClearance)
+app.post('/hm/clearances', authenticateRequest, createClearance)
 
 
 cron.schedule('0 */2 * * *', () => {

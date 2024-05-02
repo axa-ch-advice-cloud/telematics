@@ -16,8 +16,7 @@ export async function getAccessToken() {
         });
 
         if(response.data.access_token) {
-            //res.status(200).json({...response.data})
-            console.log(response.data)
+            //console.log(response.data)
             return response.data
         }
 
