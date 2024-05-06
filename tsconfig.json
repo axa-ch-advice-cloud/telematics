@@ -9,6 +9,6 @@
     "skipLibCheck": true,
     "moduleResolution": "node16"
   },
-  "include": ["src", "typings.d.ts"],
+  "include": ["src", "db", "typings.d.ts"],
   "exclude": ["node_modules"]
 }
