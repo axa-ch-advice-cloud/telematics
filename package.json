@@ -9,11 +9,11 @@
     "build": "tsc"
   },
   "dependencies": {
+    "@prisma/client": "^5.13.0",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.30.9",
     "express": "~4.16.1",
     "helmet": "^7.1.0",
     "hmkit": "^13.2.1",
@@ -30,12 +30,12 @@
     "@types/supertest": "^6.0.2",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
-    "drizzle-kit": "^0.20.17",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "nodemon": "^3.1.0",
+    "prisma": "^5.13.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
