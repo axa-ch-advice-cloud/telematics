@@ -1,10 +1,8 @@
 
 import {Request, Response} from 'express'
 import axios, {AxiosError} from 'axios'
-import dotenv from 'dotenv';
 import {handleHttpError} from "../util/handleHttpError";
 import {VehicleClearance} from "../classes/highMobilityClasses";
-dotenv.config();
 
 
 export async function getHighMobilityVehicleData(req: Request, res: Response) {

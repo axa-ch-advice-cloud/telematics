@@ -2,8 +2,6 @@
 /*
 loadData(), etc.
 */
-import dotenv from 'dotenv';
-dotenv.config()
 import {Request, Response} from "express";
 import axios, {AxiosError} from "axios";
 import {handleHttpError} from "../util/handleHttpError";

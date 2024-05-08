@@ -8,6 +8,16 @@ import cron from 'node-cron'
 import dotenv from 'dotenv';
 dotenv.config();
 
+if (process.env.NODE_ENV === "production") {
+    const result = require("dotenv").config({ path: ".env.production" });
+    process.env = {
+        ...process.env,
+        ...result.parsed,
+    };
+}
+
+
+
 import {createClearance, getClearances, getHighMobilityVehicleData} from "./controllers/highMobilityController";
 import {authenticateRequest} from "./controllers/authController";
 import {vehicleLinkingJob} from "./jobs/linkVehicles";
