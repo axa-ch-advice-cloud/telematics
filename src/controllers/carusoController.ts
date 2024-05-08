@@ -23,9 +23,17 @@ export async function getCarusoVehicleData(req: Request, res: Response) {
             version: '1.0',
             vehicles: vehicles,
             dataItems: [
-                //'dtc', Gives error
+                //'dtc', Gives error (Doesn't exist)
                 'dtcconfirmed',
-                'mileage'
+                'mileage',
+                //'brakesservicedistance', Not Covered By Subscription
+                //'nextoilservicedate', Not Covered By Subscription
+                //'nextoilservicedistance', Not Covered By Subscription
+                'nextservicedate',
+                'nextservicedistance',
+                //'yellowservicedistance', Not Covered By Subscription
+                //'yellowservicetime' Not Covered By Subscription
+
             ]
         }
 
