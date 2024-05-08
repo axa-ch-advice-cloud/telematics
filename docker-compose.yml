@@ -23,6 +23,7 @@ services:
     command: npm run dev
     volumes:
       - ./:/usr/src/app
+      - /usr/src/app/node_modules
 
 volumes:
   my_pgdata:

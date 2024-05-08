@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./",
-    "dev": "nodemon ./index.ts",
+    "dev": "nodemon -L ./index.ts",
     "serve": "docker-compose up",
     "build": "tsc"
   },

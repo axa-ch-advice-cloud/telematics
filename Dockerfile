@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package*.json ./
+RUN npm install -g nodemon
 RUN npm install
 
 
@@ -16,4 +17,5 @@ EXPOSE 3000
 
 RUN npm run build
 
-CMD [ "npm", "start" ]
+
+CMD [ "npm", "run", "dev" ]
