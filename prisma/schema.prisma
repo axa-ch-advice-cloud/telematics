@@ -4,6 +4,7 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,8 +15,81 @@ datasource db {
 }
 
 
-model Vehicle {
-  vin String @unique @id
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  password String
+  refreshToken RefreshToken[]
+  createdAt DateTime @default(now())
+  ModifiedAt DateTime @default(now())
+}
+
+model UnclearedCar {
+  id Int @id @default(autoincrement())
+  vin String
+  provider Provider
+  brand Brand
+  createdAt DateTime @default(now())
+  ModifiedAt DateTime @default(now())
+}
+
+model Car {
+  id Int @id @default(autoincrement())
+  vin String @unique
+  mileageEntries MileageEntries[]
+  availabelProvider Provider[]
+  preferedProvider Provider
+}
+
+model RefreshToken {
+  id Int @id @default(autoincrement())
+  refreshToken String @unique
+  user User @relation(fields:[userEmail], references: [email])
+  userEmail String 
+  createdAt DateTime @default(now())
+}
+
+model MileageEntries {
+  id        Int     @id @default(autoincrement())
+  car Car @relation(fields: [carVin], references: [vin])
+  carVin String
+  mileage   Int?
+  createdAt DateTime @default(now())
+  isValid Boolean
+}
+
+
+enum Provider {
+    CARUSO
+    HIGHMOBILITY
+}
+
+enum Brand {
+    AlfaRomeo
+    Audi
+    BMW
+    Citroen
+    Dacia
+    DS
+    Fiat
+    Ford
+    Hyundai
+    Jaguar
+    Jeep
+    Kia
+    LandRover
+    Lexus
+    Maserati
+    MercedesBenz
+    MINI
+    Mobilize
+    Opel
+    Peugeot
+    Porsche
+    Renault
+    Tesla
+    Toyota
+    Vauxhall
+    Volvo
 }
