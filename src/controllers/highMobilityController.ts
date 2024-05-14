@@ -4,8 +4,23 @@ import axios, { AxiosError } from 'axios';
 import { handleHttpError } from '../util/handleHttpError';
 import { VehicleClearance } from '../classes/highMobilityClasses';
 
+// TODO: Add a function to get all mileage for cars using high mobility, not just per vin
+// import { PrismaClient } from '@prisma/client';
+
+// const prisma = new PrismaClient();
+
+// export async function getAllHighMibilityVehicleData(req: Request, res: Response) {
+//   let cars = await prisma.car.findMany();
+//   cars = cars.filter((car)=>car.preferedProvider === "HIGHMOBILITY")
+//   let allCarResponse =[]
+//   cars.map((car)=>{
+//     let response = await callHighMobilityWithVin(car.vin)
+//     allCarResponse.push(response)
+//   })
+// }
 
 export async function getHighMobilityVehicleData(req: Request, res: Response) {
+  
   try {
     const vin = req.params.vin;
     const url: string = process.env.HM_API_URI + '/vehicle-data/autoapi-13/' + vin;

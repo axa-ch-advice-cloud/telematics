@@ -44,7 +44,7 @@ model Car {
   createdAt DateTime @default(now())
   modifiedAt DateTime @default(now())
   Notes Json?
-  status Status
+  status Status?
 }
 
 model RefreshToken {

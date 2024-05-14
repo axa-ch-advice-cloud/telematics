@@ -5,10 +5,16 @@ loadData(), etc.
 import { Request, Response } from 'express';
 import axios, { AxiosError } from 'axios';
 import { handleHttpError } from '../util/handleHttpError';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 export async function getCarusoVehicleData(req: Request, res: Response) {
+  let cars = await prisma.car.findMany();
+  cars = cars.filter((car)=>car.preferedProvider === "CARUSO")
+  console.log("cars", cars)
   try {
-    const vehicles = [...req.body].map((vin: string) => {
+    const vehicles = cars.map(({vin}) => {
       return {
         identifier: {
           type: 'VIN',
