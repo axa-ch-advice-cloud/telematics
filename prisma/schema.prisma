@@ -31,15 +31,20 @@ model UnclearedCar {
   provider Provider
   brand Brand
   createdAt DateTime @default(now())
-  ModifiedAt DateTime @default(now())
+  modifiedAt DateTime @default(now())
 }
 
 model Car {
   id Int @id @default(autoincrement())
   vin String @unique
+  brand Brand
   mileageEntries MileageEntries[]
-  availabelProvider Provider[]
+  clearedProvider Provider[]
   preferedProvider Provider
+  createdAt DateTime @default(now())
+  modifiedAt DateTime @default(now())
+  Notes Json?
+  status Status
 }
 
 model RefreshToken {
@@ -55,14 +60,32 @@ model MileageEntries {
   car Car @relation(fields: [carVin], references: [vin])
   carVin String
   mileage   Int?
-  createdAt DateTime @default(now())
   isValid Boolean
+  provider Provider
+  status Status
+  deletedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+}
+
+model Error {
+   id Int @id @default(autoincrement())
+   errorCode Int
+   message String
+   Notes Json?
+   createdAt DateTime @default(now())
+   deletedAt DateTime @default(now())
 }
 
 
 enum Provider {
     CARUSO
     HIGHMOBILITY
+}
+
+enum Status {
+    Active
+    Inactive
+    Deleted
 }
 
 enum Brand {
